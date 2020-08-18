@@ -2,7 +2,7 @@
   "name": "node",
   "version": "1.0.0",
   "description": "",
-  "main": "step_1/index.js",
+  "main": "main/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,5 +11,10 @@
   "license": "ISC",
   "devDependencies": {
     "prettier": "^2.0.5"
+  },
+  "dependencies": {
+    "connect": "^3.7.0",
+    "ejs": "^3.1.5",
+    "jade": "^1.11.0"
   }
 }
