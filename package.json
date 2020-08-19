@@ -1,7 +1,7 @@
 {
   "name": "node",
   "version": "1.0.0",
-  "description": "",
+  "description": "First Commit",
   "main": "main/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,11 +10,21 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "prettier": "^2.0.5"
+    "prettier": "^2.0.5",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
   },
   "dependencies": {
     "connect": "^3.7.0",
     "ejs": "^3.1.5",
     "jade": "^1.11.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JiniousKim/node.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JiniousKim/node/issues"
+  },
+  "homepage": "https://github.com/JiniousKim/node#readme"
 }
