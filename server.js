@@ -10,8 +10,8 @@ const options = {
 };
 
 webpackDevServer.addDevServerEntrypoints(config, options);
-const compiller = webpack(config);
-const server = new webpackDevServer(compiller, options);
+const compiler = webpack(config);
+const server = new webpackDevServer(compiler, options);
 
 server.listen(3000, '218.234.32.12', () => {
 	console.log('dev server listening on port 3000');
