@@ -2,10 +2,13 @@ const path = require('path');
 
 module.exports = {
 	mode: 'development',
-	entry: './resource/index.js',
+	entry: {
+		index: './resource/index.js',
+		about: './resource/about.js',
+	},
 	output: {
 		path: path.resolve(__dirname, 'public'),
-		filename: 'index_bundle.js',
+		filename: '[name]_bundle.js',
 	},
 	module: {
 		rules: [
@@ -14,8 +17,5 @@ module.exports = {
 				use: ['style-loader', 'css-loader'],
 			},
 		],
-	},
-	devServer: {
-		hot: true,
 	},
 };
