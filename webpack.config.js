@@ -6,6 +6,7 @@ module.exports = {
 	entry: {
 		index: './resource/index.js',
 		about: './resource/about.js',
+		without_redux: './resource/without_redux.js',
 	},
 	output: {
 		path: path.resolve(__dirname, 'public'),
@@ -29,6 +30,11 @@ module.exports = {
 			template: './resource/about.html',
 			filename: './about.html',
 			chunks: ['about'],
+		}),
+		new HtmlWebpackPlugin({
+			template: './resource/without-redux.html',
+			filename: './without-redux.html',
+			chunks: ['without_redux'],
 		}),
 	],
 };
