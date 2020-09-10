@@ -2,13 +2,19 @@ import {createStore, applyMiddleware} from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 
 function reducer(state, action) {
+	console.log(state, action);
 	if (state === undefined) {
 		return {
+			selected_id: null,
 			contents: [
 				{id: 1, title: 'HTML', desc: 'HTML is ...'},
 				{id: 2, title: 'CSS', desc: 'CSS is ...'},
 			],
 		};
+	}
+
+	if (action.type === 'SELECT') {
+		return Object.assign({}, state, {selected_id: action.id});
 	}
 }
 
@@ -31,7 +37,17 @@ function TOC() {
 		template = '';
 
 	for (i = 0; i < cnt; i++) {
-		template += `<li><a href="${state.contents[i].id}">${state.contents[i].title}</a></li>`;
+		template += `
+			<li>
+				<a onclick="
+					event.preventDefault();
+					store.dispatch({type: 'SELECT', id: ${state.contents[i].id}});
+					" 
+					href="${state.contents[i].id}">
+				${state.contents[i].title}
+				</a>
+			</li>
+			`;
 	}
 
 	document.querySelector('#toc').innerHTML = `
