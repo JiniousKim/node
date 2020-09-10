@@ -8,11 +8,13 @@ function reducer(state, action) {
 		return {color: 'yellow'};
 	}
 
+	var newState;
+
 	if (action.type === 'CHANGE_COLOR') {
-		state.color = 'red';
+		newState = Object.assign({}, state, {color: 'red'});
 	}
 
-	return state;
+	return newState;
 }
 
 window.store = createStore(reducer, composeWithDevTools(applyMiddleware()));
