@@ -5,7 +5,7 @@ function reducer(state, action) {
 	console.log(state, action);
 	if (state === undefined) {
 		return {
-			selected_id: null,
+			selected_id: 1,
 			contents: [
 				{id: 1, title: 'HTML', desc: 'HTML is ...'},
 				{id: 2, title: 'CSS', desc: 'CSS is ...'},
@@ -71,11 +71,13 @@ function control() {
 control();
 
 function article() {
+	var state = store.getState();
 	document.querySelector('#article').innerHTML = `
 			<article>
-				<h2>HTML</h2>
-				HTML is ...
+				<h2>${state.contents[state.selected_id - 1].title}</h2>
+				${state.contents[state.selected_id - 1].desc}
 			</article>
 		`;
 }
 article();
+store.subscribe(article);
