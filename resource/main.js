@@ -2,7 +2,6 @@ import {createStore, applyMiddleware} from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 
 function reducer(state, action) {
-	console.log(state, action);
 	if (state === undefined) {
 		return {
 			selected_id: 1,
@@ -33,7 +32,7 @@ function reducer(state, action) {
 				desc: action.desc,
 			}),
 			mode: 'read',
-			selected_id: state.contents.length + 1
+			selected_id: state.contents.length + 1,
 		});
 	}
 }
