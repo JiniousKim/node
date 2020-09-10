@@ -6,6 +6,7 @@ function reducer(state, action) {
 		return {
 			selected_id: 1,
 			mode: 'read',
+			max_id: 2,
 			contents: [
 				{id: 1, title: 'HTML', desc: 'HTML is ...'},
 				{id: 2, title: 'CSS', desc: 'CSS is ...'},
@@ -27,12 +28,13 @@ function reducer(state, action) {
 	if (action.type === 'STORE') {
 		return Object.assign({}, state, {
 			contents: state.contents.concat({
-				id: state.contents.length + 1,
+				id: state.max_id + 1,
 				title: action.title,
 				desc: action.desc,
 			}),
 			mode: 'read',
 			selected_id: state.contents.length + 1,
+			max_id: state.max_id + 1,
 		});
 	}
 }
@@ -97,10 +99,21 @@ function article() {
 	var state = store.getState();
 
 	if (state.mode === 'read') {
+		var i = 0,
+			cnt = state.contents.length,
+			content = {};
+
+		for (i = 0; i < cnt; i++) {
+			if (state.contents[i].id === state.selected_id) {
+				content = state.contents[i];
+				break;
+			}
+		}
+
 		document.querySelector('#article').innerHTML = `
 				<article>
-					<h2>${state.contents[state.selected_id - 1].title}</h2>
-					${state.contents[state.selected_id - 1].desc}
+					<h2>${content.title}</h2>
+					${content.desc}
 				</article>
 			`;
 	}
