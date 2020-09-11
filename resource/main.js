@@ -5,7 +5,7 @@ function reducer(state, action) {
 	if (state === undefined) {
 		return {
 			selected_id: 1,
-			mode: 'read',
+			mode: 'welcome',
 			max_id: 2,
 			contents: [
 				{id: 1, title: 'HTML', desc: 'HTML is ...'},
@@ -26,15 +26,31 @@ function reducer(state, action) {
 	}
 
 	if (action.type === 'STORE') {
+		var maxId = state.max_id + 1;
 		return Object.assign({}, state, {
 			contents: state.contents.concat({
-				id: state.max_id + 1,
+				id: maxId,
 				title: action.title,
 				desc: action.desc,
 			}),
 			mode: 'read',
-			selected_id: state.contents.length + 1,
-			max_id: state.max_id + 1,
+			selected_id: maxId,
+			max_id: maxId,
+		});
+	}
+
+	if (action.type === 'DELETE') {
+		var newContents = [];
+		for (var i = 0; i < state.contents.length; i++) {
+			if (action.selected_id !== state.contents[i].id) {
+				newContents.push(state.contents[i]);
+			}
+		}
+
+		return Object.assign({}, state, {
+			contents: newContents,
+			type: 'SELECT',
+			mode: 'welcome',
 		});
 	}
 }
@@ -82,6 +98,7 @@ function TOC() {
 TOC();
 
 function control() {
+	var state = store.getState();
 	document.querySelector('#control').innerHTML = `
 			<ul>
 				<li><a onclick="
@@ -89,7 +106,11 @@ function control() {
 				store.dispatch({type: 'CREATE', mode: 'create'})
 				" 
 				href="/create">create</a></li>
-				<li><input type="button" value="delete"></li>
+				<li><input
+				onclick="
+					store.dispatch({type: 'DELETE', selected_id: ${state.selected_id}});
+				" 
+				type="button" value="delete"></li>
 			</ul>
 		`;
 }
@@ -97,6 +118,15 @@ control();
 
 function article() {
 	var state = store.getState();
+
+	if (state.mode === 'welcome') {
+		document.querySelector('#article').innerHTML = `
+			<article>
+				<h2>Welcome Redux!</h2>
+				Welcome Redux Example~~~
+			</article>
+		`;
+	}
 
 	if (state.mode === 'read') {
 		var i = 0,
@@ -141,3 +171,4 @@ article();
 
 store.subscribe(article);
 store.subscribe(TOC);
+store.subscribe(control);
